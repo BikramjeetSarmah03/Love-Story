@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Story of me</title>
+
+    <link rel="stylesheet" href="style.css" />
+    <script src="jquery.js"></script>
+  </head>
+  <body>
+    <div id="boy">
+      <img src="Boy.svg" alt="Bikram" width="200" />
+    </div>
+
+    <div id="girl">
+      <img src="girl.svg" alt="Deepsikha" width="200" />
+    </div>
+
+    <div id="heart">
+      <img src="heart.svg" alt="heart" width="200" />
+    </div>
+
+    <div id="callout">some text</div>
+    <div id="animatedHeart" class="heart_outer" style="display: none">
+      <div class="text_up">I Love You</div>
+      <div class="heart_inner"></div>
+    </div>
+
+    <script>
+      var dialogs = [
+          "Deepsikha: Hey, This is my heart!",
+          "Bikram: Oh! Sorry, I though it came from heaven",
+          "Deepsikha: It slipped from my hands.",
+          "Deepsikha: Can you handle it?",
+          "Bikram: I can better take care of it.",
+          "Deepsikha: Are you sure?",
+          "Bikram: It will never slip from my hands",
+          "Bikram: I will never break it.",
+          "Deepsikha: Hmmm",
+          "Bikram: Give me a chance",
+          "Deepsikha: What will you do with it?",
+          "Bikram: I will keep it close to my heart",
+        ],
+        dIndex = 0;
+
+      function App() {
+        this.boy = $("#boy");
+        this.girl = $("#girl");
+        this.heart = $("#heart");
+        this.callout = $("#callout");
+        this.animatedHeart = $("#animatedHeart");
+        this.hideEverthing();
+        this.alignElements();
+        this.animateBoy();
+      }
+
+      App.prototype.hideEverthing = function () {
+        this.callout.hide();
+      };
+
+      App.prototype.getDim = function () {
+        var dim = {
+          left: 0,
+          top: 0,
+        };
+
+        dim.right = $(window).width();
+        dim.bottom = $(window).height();
+        return dim;
+      };
+
+      App.prototype.alignElements = function () {
+        var dims = this.getDim();
+
+        this.boy.css({
+          left: -200,
+          bottom: -dims.bottom,
+        });
+
+        this.girl.css({
+          right: -200,
+          bottom: -dims.bottom,
+          width: 90,
+        });
+
+        this.heart.css({
+          width: 50,
+          right: -70,
+          bottom: -(dims.bottom - 50),
+        });
+
+        this.callout.css({
+          top: 100,
+          left: 150,
+        });
+      };
+
+      App.prototype.animateBoy = function () {
+        var self = this;
+        window.setTimeout(function () {
+          self.boy.animate(
+            {
+              left: "200px",
+            },
+            {
+              duration: 2000,
+              complete: function () {
+                self.animateHeart();
+              },
+            }
+          );
+        }, 1000);
+      };
+
+      App.prototype.animateHeart = function () {
+        var self = this;
+        self.heart.animate(
+          {
+            right: self.getDim().right - 290,
+          },
+          {
+            duration: 8000,
+            complete: function () {
+              self.animateGirl();
+            },
+          }
+        );
+      };
+
+      App.prototype.animateGirl = function () {
+        var self = this;
+        self.girl.animate(
+          {
+            right: 200,
+          },
+          {
+            duration: 5000,
+            complete: function () {
+              self.handleCallout();
+            },
+          }
+        );
+      };
+
+      App.prototype.handleCallout = function () {
+        var self = this;
+        this.callout.text(dialogs[dIndex]);
+        this.callout.slideToggle(400);
+        dIndex += 1;
+
+        setTimeout(function () {
+          self.callout.text(dialogs[dIndex]);
+          dIndex += 1;
+          setTimeout(function () {
+            self.callout.text(dialogs[dIndex]);
+            dIndex += 1;
+            setTimeout(function () {
+              self.callout.text(dialogs[dIndex]);
+              dIndex += 1;
+              setTimeout(function () {
+                self.callout.text(dialogs[dIndex]);
+                dIndex += 1;
+                setTimeout(function () {
+                  self.callout.text(dialogs[dIndex]);
+                  dIndex += 1;
+                  setTimeout(function () {
+                    self.callout.text(dialogs[dIndex]);
+                    dIndex += 1;
+                    setTimeout(function () {
+                      self.callout.text(dialogs[dIndex]);
+                      dIndex += 1;
+                      setTimeout(function () {
+                        self.callout.text(dialogs[dIndex]);
+                        dIndex += 1;
+                        setTimeout(function () {
+                          self.callout.text(dialogs[dIndex]);
+                          dIndex += 1;
+                          setTimeout(function () {
+                            self.callout.text(dialogs[dIndex]);
+                            dIndex += 1;
+                            setTimeout(function () {
+                              self.callout.text(dialogs[dIndex]);
+                              dIndex += 1;
+                              setTimeout(function () {
+                                self.ending();
+                              }, 5000);
+                            }, 4000);
+                          }, 4000);
+                        }, 3500);
+                      }, 3000);
+                    }, 3000);
+                  }, 3000);
+                }, 3000);
+              }, 3000);
+            }, 3000);
+          }, 3500);
+        }, 4500);
+      };
+
+      App.prototype.ending = function () {
+        var self = this;
+        this.callout.slideToggle(200);
+        this.boy.animate(
+          {
+            left: this.getDim().right / 2 - 100,
+          },
+          5000
+        );
+        this.heart.animate(
+          {
+            left: this.getDim().right / 2 - 80,
+          },
+          {
+            duration: 5000,
+            complete: function () {
+              self.heart.css({
+                "z-index": "-1",
+                left: self.getDim().right / 2 - 25,
+              });
+              self.heart.css("display", "none");
+              self.animatedHeart.css("display", "flex");
+            },
+          }
+        );
+        this.girl.animate(
+          {
+            right: this.getDim().right / 2 - 100,
+          },
+          5000
+        );
+      };
+
+      new App();
+    </script>
+  </body>
+</html>
