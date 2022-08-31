@@ -3,6 +3,8 @@ body {
   overflow: hidden;
   font-family: sans-serif;
   background-image: linear-gradient(to left, #fa4567, #fc3ff5);
+  max-width: 100vw;
+  max-height: 100vh;
 }
 
 img {
@@ -38,7 +40,7 @@ img {
   position: absolute;
   width: 200px;
   height: 200px;
-  bottom: 5rem;
+  bottom: 2rem;
   background-color: red;
   transform: rotate(45deg);
   animation: heart_inner 1s infinite alternate ease;
@@ -87,6 +89,7 @@ img {
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-top: -200px;
 }
 
 @keyframes text_up {
@@ -105,6 +108,6 @@ img {
 
 @media only screen and (max-width: 786px) {
   .text_up {
-    font-size: 2rem;
+    font-size: 3rem;
   }
 }
